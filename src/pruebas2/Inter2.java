@@ -17,7 +17,7 @@ public class Inter2 extends JFrame implements ActionListener {
 
 	public static int[] resultado, roller, totales;
 
-	public static int total,x,y;
+	public static int total, x, y;
 
 	public static int Dx = 6;
 
@@ -35,7 +35,7 @@ public class Inter2 extends JFrame implements ActionListener {
 
 	public static JLabel totalRes;
 
-	private JLabel salir, minim, tituloP_2, tituloP_3, imgTotal,moverPantalla;
+	private JLabel salir, minim, tituloP_2, tituloP_3, imgTotal, moverPantalla;
 
 	static boolean com1 = false;
 	static boolean com2 = false;
@@ -47,7 +47,7 @@ public class Inter2 extends JFrame implements ActionListener {
 	private JLabel imgd8, imgd20, imgd6, imgd12, imgd4, imgd10, imgd3;
 
 	public Inter2() {
-		
+
 		this.setLocationRelativeTo(null);
 		setUndecorated(true);
 		setResizable(false);
@@ -64,25 +64,25 @@ public class Inter2 extends JFrame implements ActionListener {
 		panel4.setBorder(UIManager.getBorder("EditorPane.border"));
 		panel4.setBounds(0, 246, 652, 224);
 		panel4.setVisible(false);
-		
+
 		moverPantalla = new JLabel("");
 		moverPantalla.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseDragged(MouseEvent r) {
-				
-				Point point= MouseInfo.getPointerInfo().getLocation();
-				setLocation(point.x - x, point.y-y);
+
+				Point point = MouseInfo.getPointerInfo().getLocation();
+				setLocation(point.x - x, point.y - y);
 			}
 		});
 		moverPantalla.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				
-				x=e.getX();
-				y=e.getY();
+
+				x = e.getX();
+				y = e.getY();
 			}
 		});
-		
+
 		moverPantalla.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
 		moverPantalla.setBounds(0, 0, 575, 97);
 		add(moverPantalla);
@@ -544,42 +544,41 @@ public class Inter2 extends JFrame implements ActionListener {
 
 			if (numD == 0 || numD > 1000) {
 				JOptionPane.showMessageDialog(botonLanzar, "Introduce un valor de 1 a 1000",
-						"Nï¿½mero de dados Incorrecto", getDefaultCloseOperation());
-			}
-
-			if (numD < 16) {
-				resultadoDados.setModel(new DefaultTableModel(5, 4));
-
+						"Número de dados Incorrecto", getDefaultCloseOperation());
 			} else {
 
-				resultadoDados.setModel(new DefaultTableModel((int) Math.round(numD / 4) + 1, 4));
+				if (numD < 16) {
+					resultadoDados.setModel(new DefaultTableModel(5, 4));
+
+				} else {
+
+					resultadoDados.setModel(new DefaultTableModel((int) Math.round(numD / 4) + 1, 4));
+				}
+
+				roller = new int[numD];
+				resuTT = "";
+
+				Dados.rellenarAleatorios(roller, Dx, numD);
+
+				for (int i = 0; i < roller.length; i++) {
+					resuTT = resuTT + " D " + (i + 1) + ":  " + Integer.toString(roller[i]) + "\t\t";
+				}
+				rellenaTexto(resuTT);
+
+				if (panel3.isVisible()) {
+					panel3.setVisible(false);
+					panel4.setVisible(true);
+				} else {
+					panel4.setVisible(true);
+				}
 			}
 
-			roller = new int[numD];
-			resuTT = "";
-
-
-			Dados.rellenarAleatorios(roller, Dx, numD);
-
-
-			for (int i = 0; i < roller.length; i++) {
-				resuTT = resuTT + " D " + (i + 1) + ":  " + Integer.toString(roller[i]) + "\t\t";
-			}
-			rellenaTexto(resuTT);
-
-			if (panel3.isVisible()) {
-				panel3.setVisible(false);
-				panel4.setVisible(true);
-			}
-			panel4.setVisible(true);
 		}
 	}
 
 	private @SuppressWarnings("serial") static class Paneles extends JPanel {
 
-
 		public Paneles() {
-
 
 		}
 	}
